@@ -10,8 +10,8 @@ from fastapi_code_samples.CustomAuth import CustomAuth
 class SampleGenerator:
     def __init__(self,
                  app: FastAPI,
-                 API_PREFIX: str = 'http://localhost:8000',
-                 BASE_URL: str = '/',
+                 BASE_URL: str = 'http://localhost:8000',
+                 API_PREFIX: str = '/',
                  auth_config: CustomAuth = CustomAuth(
                      header='X-API-Key',
                      sample_token='1234'
@@ -76,6 +76,7 @@ class SampleGenerator:
                 }
             ]
         if method in ['POST', 'PUT', 'PATCH'] and route.body_field:
+            auth_header = f"'{self.auth_config.header}': '{self.auth_config.prefix}{self.auth_config.sample_token}'"
             try:
                 example_schema = route.body_field.type_.Config.json_schema_extra.get('example')
                 payload = f"json.dumps({example_schema})"
@@ -91,7 +92,7 @@ class SampleGenerator:
                 'lang': 'Shell',
                 'source': f"curl --location\\{nl} "
                           f"--request {method} '{self.BASE_URL}{route.path}'\\{nl} "
-                          f"--header 'X-API-Key': '2324143'"
+                          f"--header {auth_header}"
                           f"{data_raw}",
                 'label': 'curl'
             },
@@ -101,7 +102,7 @@ class SampleGenerator:
                           f"{'import json' + nl if method.lower() == 'post' else ''}{nl}"
                           f"url = \"{self.BASE_URL}{route.path}\"{nl}"
                           f"payload = {payload}{nl}"
-                          f"headers = {{'X-API-Key': '2324143'}}{nl}"
+                          f"headers = {auth_header}{nl}"
                           f"response = requests.request(\"{method}\", url, headers=headers, data=payload){nl}"
                           f"print(response.text)",
                 'label': 'Python3'
@@ -110,7 +111,7 @@ class SampleGenerator:
                 'lang': 'JavaScript',
                 'source': f"const axios = require('axios'){nl}"
                           f"const url = \"{self.BASE_URL}{route.path}\"{nl}"
-                          f"const headers = {{'X-API-Key': '2324143'}}{nl}"
+                          f"const headers = {auth_header}{nl}"
                           f"const payload = {payload}{nl}"
                           f"axios.{method.lower()}(url, payload, {{ headers }}){nl}"
                           f"    .then(response => console.log(response.data)){nl}"
