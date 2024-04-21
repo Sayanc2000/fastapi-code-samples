@@ -1,5 +1,8 @@
 # Code Sample Docs
 
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/fastapi-code-samples)](https://pypi.org/project/fastapi-code-samples/)
+[![PyPI version](https://badge.fury.io/py/fastapi-code-samples.svg)](https://pypi.org/project/fastapi-code-samples/)
+
 A code sample generator for fastapi endpoint extending on OpenAPI.
 
 ## Installation
