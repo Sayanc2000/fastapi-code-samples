@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.openapi.utils import get_openapi
 from fastapi.routing import APIRoute
 
-from code_samples.CustomAuth import CustomAuth
+from fastapi_code_samples.CustomAuth import CustomAuth
 
 
 class SampleGenerator:

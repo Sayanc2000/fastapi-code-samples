@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
-from code_samples.CustomAuth import CustomAuth
-from code_samples.SampleGenerator import SampleGenerator
+from fastapi_code_samples.CustomAuth import CustomAuth
+from fastapi_code_samples.SampleGenerator import SampleGenerator
 from schemas import ItemCreate
 
 app = FastAPI()
